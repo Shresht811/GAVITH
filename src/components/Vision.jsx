@@ -6,35 +6,39 @@ const Vision = () => {
 
     useEffect(() => {
         const section = sectionRef.current;
-        const handleMouseMove = (e) => {
-            if (!solarSystemRef.current || window.matchMedia("(pointer: coarse)").matches) return;
+        const handleMove = (e) => {
+            if (!solarSystemRef.current) return;
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
             const { left, top, width, height } = section.getBoundingClientRect();
-            const x = (e.clientX - left) / width - 0.5;
-            const y = (e.clientY - top) / height - 0.5;
+            const x = (clientX - left) / width - 0.5;
+            const y = (clientY - top) / height - 0.5;
 
-            // Subtle parallax/tilt effect
-            // Base rotation is rotateX(60deg). We add the mouse influence to it.
             solarSystemRef.current.style.transform =
                 `perspective(1000px) rotateX(${60 - y * 20}deg) rotateY(${x * 20}deg) scale(1.0)`;
         };
 
-        const handleMouseLeave = () => {
+        const handleReset = () => {
             if (!solarSystemRef.current) return;
-            // Reset to base state
             solarSystemRef.current.style.transform =
                 `perspective(1000px) rotateX(60deg) rotateY(0deg) scale(1.0)`;
         };
 
         if (section) {
-            section.addEventListener('mousemove', handleMouseMove);
-            section.addEventListener('mouseleave', handleMouseLeave);
+            section.addEventListener('mousemove', handleMove);
+            section.addEventListener('mouseleave', handleReset);
+            section.addEventListener('touchmove', handleMove, { passive: true });
+            section.addEventListener('touchend', handleReset);
         }
 
         return () => {
             if (section) {
-                section.removeEventListener('mousemove', handleMouseMove);
-                section.removeEventListener('mouseleave', handleMouseLeave);
+                section.removeEventListener('mousemove', handleMove);
+                section.removeEventListener('mouseleave', handleReset);
+                section.removeEventListener('touchmove', handleMove);
+                section.removeEventListener('touchend', handleReset);
             }
         };
     }, []);

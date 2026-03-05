@@ -74,7 +74,12 @@ const Features = () => {
                         </div>
                     </ScrollReveal>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
+                        gap: '2rem',
+                        justifyContent: 'center'
+                    }}>
                         {[
                             { title: "Unified Ecosystem", desc: "Connect manufacturing, sales, and logistics in one dashboard. See the entire lifecycle of your product from factory floor to customer door." },
                             { title: "Smart Inventory", desc: "Automated logic that learns your sales patterns. It predicts stock shortages and handles reordering without manual input." },

@@ -42,7 +42,7 @@ const Hero = () => {
                     <img src="/logo_transparent.png" alt="G" style={{
                         height: '1.2em',
                         verticalAlign: 'middle',
-                        marginRight: '-0.20em',
+                        marginRight: '-0.25em', // Shifted slightly more left
                         filter: 'drop-shadow(0 0 40px rgba(0, 91, 234, 0.4))',
                         display: 'inline-block'
                     }} />

@@ -198,13 +198,13 @@ const LogoMarquee = ({ items, speed = 40, direction = 'normal' }) => (
             animation: `scroll-left ${speed}s linear infinite`,
             animationDirection: direction
         }}>
-            {items.concat(items).map((item, i) => ( // Duplicate items for seamless loop
+            {items.concat(items, items).map((item, i) => ( // Triple items for better coverage on mobile
                 <span key={i} style={{
                     display: 'inline-block',
-                    fontSize: '2.5rem',
+                    fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
                     fontWeight: '800',
                     color: 'rgba(255,255,255,0.15)',
-                    margin: '0 4rem',
+                    margin: '0 clamp(1.5rem, 5vw, 4rem)',
                     textTransform: 'uppercase',
                     cursor: 'default',
                     transition: 'color 0.3s'

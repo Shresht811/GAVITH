@@ -9,17 +9,33 @@ const TermsOfService = () => {
                 top: '100px',
                 right: 'clamp(1rem, 5vw, 4rem)',
                 zIndex: 1000,
-                color: '#fff',
+                color: 'rgba(255,255,255,0.3)',
                 textDecoration: 'none',
-                background: 'rgba(0,0,0,0.5)',
+                background: 'rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(10px)',
-                padding: '0.5rem 1.5rem',
-                borderRadius: '50px',
-                border: '1px solid rgba(0, 210, 255, 0.3)',
-                fontSize: '0.9rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em'
-            }}>✕ Close</Link>
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.1)',
+                fontSize: '2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                lineHeight: 1,
+                fontWeight: '200'
+            }}
+                onMouseEnter={e => {
+                    e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.borderColor = 'rgba(0, 210, 255, 0.5)';
+                    e.currentTarget.style.background = 'rgba(0, 210, 255, 0.1)';
+                }}
+                onMouseLeave={e => {
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.3)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                }}
+            >&times;</Link>
             <ScrollReveal>
                 <h1 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', marginBottom: '2rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
                     TERMS OF <span className="gavith-text">SERVICE</span>
