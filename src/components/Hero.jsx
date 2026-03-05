@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Hero = () => {
     const [loaded, setLoaded] = useState(false);
@@ -12,7 +12,6 @@ const Hero = () => {
             height: '100vh',
             width: '100%',
             position: 'relative',
-            // Transparent background so the global stars show through
             background: 'transparent',
             display: 'flex',
             flexDirection: 'column',
@@ -28,7 +27,7 @@ const Hero = () => {
                 transform: loaded ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
                 transition: 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
             }}>
-                {/* Updated Typography: Favicon Colors + Fading Effect */}
+                {/* GAVITH Heading */}
                 <h1 style={{
                     fontSize: 'clamp(3rem, 12vw, 9rem)',
                     fontWeight: '900',
@@ -39,14 +38,19 @@ const Hero = () => {
                     textAlign: 'center',
                     display: 'block'
                 }}>
-                    {/* Desktop: marginRight -0.20em (original). Mobile override via CSS class below */}
-                    <img src="/logo_transparent.png" alt="G" className="hero-g-logo" style={{
-                        height: '1.2em',
-                        verticalAlign: 'middle',
-                        marginRight: '-0.20em',
-                        filter: 'drop-shadow(0 0 40px rgba(0, 91, 234, 0.4))',
-                        display: 'inline-block'
-                    }} />
+                    {/* Original desktop margin. Mobile override via CSS below. */}
+                    <img
+                        src="/logo_transparent.png"
+                        alt="G"
+                        className="hero-g-logo"
+                        style={{
+                            height: '1.2em',
+                            verticalAlign: 'middle',
+                            marginRight: '-0.20em',
+                            filter: 'drop-shadow(0 0 40px rgba(0, 91, 234, 0.4))',
+                            display: 'inline-block'
+                        }}
+                    />
                     <span style={{
                         display: 'inline-block',
                         verticalAlign: 'middle',
@@ -61,6 +65,7 @@ const Hero = () => {
                     </span>
                 </h1>
 
+                {/* Subheadline — desktop: aligned under the A; mobile: centered */}
                 <p className="hero-subheadline" style={{
                     fontSize: 'clamp(0.8rem, 1.5vw, 1.2rem)',
                     fontWeight: '400',
@@ -68,14 +73,10 @@ const Hero = () => {
                     color: 'rgba(255,255,255,0.7)',
                     marginTop: '1rem',
                     letterSpacing: '0.2em',
-                    textAlign: 'center',
-                    width: '100%',
                     textTransform: 'uppercase',
                 }}>
                     Technology, Perfected.
                 </p>
-
-
             </div>
 
             <style>{`
@@ -85,10 +86,22 @@ const Hero = () => {
               50% { background-position: 100% 50%; }
               100% { background-position: 0% 50%; }
           }
-          /* Mobile: shift logo slightly left for better centering */
+          /* Desktop: subheadline starts under the "A" — offset = approx width of the G logo */
+          @media (min-width: 769px) {
+              .hero-subheadline {
+                  text-align: left;
+                  padding-left: 11.5vw; /* roughly the width of the G logo at 12vw font */
+              }
+          }
+          /* Mobile: keep centered; pull G logo only slightly so no overlap */
           @media (max-width: 768px) {
+              .hero-subheadline {
+                  text-align: center;
+                  width: 100%;
+                  padding-left: 0;
+              }
               .hero-g-logo {
-                  margin-right: -0.45em !important;
+                  margin-right: -0.10em !important; /* subtle left pull, no overlap */
               }
           }
       `}</style>
