@@ -60,7 +60,7 @@ const Hero = () => {
                     </span>
                 </h1>
 
-                <p style={{
+                <p className="hero-subheadline" style={{
                     fontSize: 'clamp(0.8rem, 1.5vw, 1.2rem)',
                     fontWeight: '400',
                     fontFamily: '"Comfortaa", "Inter", sans-serif',
@@ -70,7 +70,6 @@ const Hero = () => {
                     textAlign: 'center',
                     width: '100%',
                     textTransform: 'uppercase',
-                    paddingLeft: '4rem' // Shifted further right for optical alignment
                 }}>
                     Technology, Perfected.
                 </p>
@@ -84,6 +83,11 @@ const Hero = () => {
               0% { background-position: 0% 50%; }
               50% { background-position: 100% 50%; }
               100% { background-position: 0% 50%; }
+          }
+          @media (min-width: 769px) {
+              .hero-subheadline {
+                  padding-left: 4rem;
+              }
           }
       `}</style>
         </section>

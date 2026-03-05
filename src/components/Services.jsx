@@ -55,16 +55,16 @@ const Services = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '2rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '1.5rem'
                 }}>
                     {solutions.map((item, index) => (
                         <div key={index} className="holo-card" style={{
-                            padding: '3rem 2rem',
+                            padding: 'clamp(1.5rem, 5vw, 3rem) 2rem',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
-                            minHeight: '350px',
+                            minHeight: 'clamp(300px, 40vh, 350px)',
                             background: 'linear-gradient(180deg, rgba(10, 15, 25, 0.8) 0%, rgba(5, 5, 10, 0.9) 100%)'
                         }}>
                             {/* decorative corner */}
@@ -90,7 +90,7 @@ const Services = () => {
                                 </div>
 
                                 <h3 style={{
-                                    fontSize: '1.8rem',
+                                    fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
                                     marginBottom: '1rem',
                                     color: 'white'
                                 }}>
@@ -98,7 +98,7 @@ const Services = () => {
                                 </h3>
                                 <p style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '1rem',
+                                    fontSize: '0.95rem',
                                     color: 'rgba(255,255,255,0.7)',
                                     lineHeight: '1.6'
                                 }}>
@@ -114,8 +114,8 @@ const Services = () => {
                                 position: 'relative'
                             }}>
                                 <div style={{
-                                    position: 'absolute', top: '-2px', left: 0,
-                                    width: '20%', height: '5px',
+                                    position: 'absolute', top: '-1px', left: 0,
+                                    width: '20%', height: '3px',
                                     background: item.color,
                                     boxShadow: `0 0 10px ${item.color}`
                                 }}></div>

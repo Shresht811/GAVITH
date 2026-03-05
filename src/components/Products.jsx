@@ -26,7 +26,7 @@ const Products = () => {
             <div className="container">
                 <div style={{ marginBottom: '5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'end', flexWrap: 'wrap', gap: '2rem' }}>
                     <div>
-                        <h2 style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', lineHeight: 1 }}>
+                        <h2 style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', lineHeight: 1 }}>
                             Our <span className="gavith-text">Products</span>
                         </h2>
                         <p style={{ fontFamily: 'Inter', color: 'rgba(255,255,255,0.6)', maxWidth: '400px', marginTop: '1rem' }}>
@@ -48,20 +48,17 @@ const Products = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '2rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '1.5rem'
                 }}>
 
                     {products.map((item, index) => (
-                        <a href="#" key={index} className="holo-card" style={{
-                            textDecoration: 'none',
-                            padding: '3rem',
-                            position: 'relative',
+                        <div key={index} className="holo-card" style={{
+                            padding: 'clamp(1.5rem, 5vw, 3rem) 2rem',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
-                            minHeight: '450px', // Increased height for better proportions
-                            // Holographic dark background matching Services
+                            minHeight: 'clamp(300px, 40vh, 350px)',
                             background: 'linear-gradient(180deg, rgba(10, 15, 25, 0.8) 0%, rgba(5, 5, 10, 0.9) 100%)'
                         }}>
                             {/* Decorative Corner (Top Right) */}
@@ -87,7 +84,7 @@ const Products = () => {
                                 }}>
                                     {item.subtitle}
                                 </div>
-                                <h3 style={{ fontSize: '2.5rem', color: 'white', marginBottom: '1rem' }}>
+                                <h3 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: 'white', marginBottom: '1rem' }}>
                                     <span style={{
                                         background: `linear-gradient(135deg, #fff 0%, ${item.color} 100%)`,
                                         WebkitBackgroundClip: 'text',
@@ -134,7 +131,7 @@ const Products = () => {
                                 </div>
                                 <span style={{ color: 'white', fontWeight: '500' }}>{item.linkText}</span>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
             </div>

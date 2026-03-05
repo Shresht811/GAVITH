@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer style={{
             background: 'var(--bg-secondary)',
-            padding: '4rem 0 2rem',
+            padding: 'var(--spacing-lg) 0 var(--spacing-sm)',
             borderTop: '1px solid #222'
         }}>
             <div className="container" style={{

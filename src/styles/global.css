@@ -71,9 +71,21 @@ p {
     padding: 0 var(--spacing-md);
 }
 
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
 .section {
     padding: var(--spacing-xl) 0;
     position: relative;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: var(--spacing-lg) 0;
+    }
 }
 
 /* Global Grain Overlay */
@@ -212,4 +224,18 @@ p {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
+}
+
+/* Responsive Utilities */
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+    .desktop-only {
+        display: none;
+    }
 }

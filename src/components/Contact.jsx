@@ -41,10 +41,10 @@ const Contact = () => {
                 textAlign: 'center',
                 marginBottom: '4rem'
             }}>
-                <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+                <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)', marginBottom: '1rem' }}>
                     Ready to <span className="gradient-text">Innovate?</span>
                 </h2>
-                <p style={{ maxWidth: '600px' }}>
+                <p style={{ maxWidth: '600px', fontSize: 'clamp(1rem, 1.2vw, 1.2rem)' }}>
                     Whether you need a strategic partner or a powerful tool, GAVITH is here to propel your business forward.
                 </p>
             </div>
@@ -52,7 +52,7 @@ const Contact = () => {
             <div className="glass-card" style={{
                 maxWidth: '600px',
                 margin: '0 auto',
-                padding: '3rem'
+                padding: 'clamp(1.5rem, 5vw, 3rem)'
             }}>
                 <form
                     name="contact"
@@ -72,9 +72,14 @@ const Contact = () => {
                         outline: 'none'
                     }} />
 
-                    <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div style={{
+                        display: 'flex',
+                        gap: '1rem',
+                        flexDirection: 'row',
+                        flexWrap: 'wrap'
+                    }}>
                         <input type="email" name="email" required placeholder="Email" style={{
-                            flex: 1,
+                            flex: '1 1 200px',
                             padding: '1rem',
                             background: 'rgba(255,255,255,0.05)',
                             border: '1px solid rgba(255,255,255,0.1)',
@@ -83,7 +88,7 @@ const Contact = () => {
                             outline: 'none'
                         }} />
                         <input type="tel" name="phone" placeholder="Phone Number" style={{
-                            flex: 1,
+                            flex: '1 1 200px',
                             padding: '1rem',
                             background: 'rgba(255,255,255,0.05)',
                             border: '1px solid rgba(255,255,255,0.1)',
@@ -187,7 +192,7 @@ const Contact = () => {
                             onClick={() => setShowModal(false)}
                             style={{
                                 padding: '0.8rem 2rem',
-                                background: 'transparent',
+                                background: 'var(--bg-secondary)',
                                 border: `1px solid ${status.includes('Oops') ? '#ff4d4d' : '#00d2ff'}`,
                                 color: 'white',
                                 borderRadius: '8px',

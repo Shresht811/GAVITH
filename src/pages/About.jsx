@@ -29,20 +29,20 @@ const WireframeCube = () => {
 
 const About = () => {
     return (
-        <div style={{ paddingTop: '150px', paddingBottom: '10rem', maxWidth: '1400px', margin: '0 auto', paddingLeft: '4rem', paddingRight: '4rem' }}>
+        <div className="container" style={{ paddingTop: 'clamp(100px, 15vh, 150px)', paddingBottom: 'var(--spacing-xl)' }}>
 
             {/* HERO: WHO WE ARE */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10rem', flexWrap: 'wrap-reverse', gap: '4rem' }}>
-                <div style={{ flex: 1, minWidth: '300px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-xl)', flexWrap: 'wrap-reverse', gap: '3rem' }}>
+                <div style={{ flex: 1, minWidth: '280px' }}>
                     <ScrollReveal>
                         <h1 style={{
-                            fontSize: 'clamp(3rem, 5vw, 6rem)',
-                            lineHeight: 1,
-                            marginBottom: '2rem',
+                            fontSize: 'clamp(2.2rem, 8vw, 6rem)',
+                            lineHeight: 1.1,
+                            marginBottom: '1.5rem',
                             fontWeight: '800',
                             letterSpacing: '-0.02em'
                         }}>
-                            WE BUILD THE SOFTWARE THAT <br />
+                            WE BUILD THE SOFTWARE THAT <br className="desktop-only" />
                             <span className="gavith-text">SHAPES THE WORLD.</span>
                         </h1>
                         <p style={{
@@ -71,11 +71,11 @@ const About = () => {
             </div>
 
             {/* OUR CORE VALUES */}
-            <div style={{ marginBottom: '10rem' }}>
+            <div style={{ marginBottom: 'var(--spacing-xl)' }}>
                 <ScrollReveal>
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>OUR CORE VALUES</h2>
+                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', marginBottom: '2rem' }}>OUR CORE VALUES</h2>
                 </ScrollReveal>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                     {[
                         { title: "VISION", desc: "Available light is not enough. We build the torches that illuminate the path forward for an entire industry." },
                         { title: "INTEGRITY", desc: "Structure is everything. We build our relationships with the same reinforced concrete strength we expect from our buildings." },
@@ -99,12 +99,12 @@ const About = () => {
             </div>
 
             {/* LEADERSHIP / TEAM (Placeholder for Company Structure) */}
-            <div style={{ marginBottom: '10rem' }}>
+            <div style={{ marginBottom: 'var(--spacing-xl)' }}>
                 <ScrollReveal>
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>LEADERSHIP</h2>
+                    <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', marginBottom: '2rem' }}>LEADERSHIP</h2>
                 </ScrollReveal>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                     {[
                         {
                             name: "Executive Action",
@@ -145,9 +145,9 @@ const About = () => {
                             }}>
                                 <div style={{
                                     width: '100%',
-                                    height: '180px',
+                                    height: 'clamp(150px, 20vw, 180px)',
                                     background: 'linear-gradient(135deg, rgba(10, 15, 25, 0.4) 0%, rgba(5, 5, 10, 0) 100%)',
-                                    marginBottom: '2rem',
+                                    marginBottom: '1.5rem',
                                     borderRadius: '8px',
                                     display: 'flex',
                                     alignItems: 'center',

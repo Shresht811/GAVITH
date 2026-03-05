@@ -70,7 +70,7 @@ const WhitePaperModal = ({ isOpen, onClose, paper }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '2rem'
+            padding: '1rem'
         }} onClick={onClose}>
             <div style={{
                 background: 'linear-gradient(180deg, #0a0f19 0%, #05050a 100%)',
@@ -79,8 +79,8 @@ const WhitePaperModal = ({ isOpen, onClose, paper }) => {
                 maxHeight: '90vh',
                 overflowY: 'auto',
                 border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '32px',
-                padding: '5rem',
+                borderRadius: '24px',
+                padding: 'clamp(1.5rem, 5vw, 5rem)',
                 position: 'relative',
                 boxShadow: '0 0 80px rgba(0, 210, 255, 0.1)',
                 textAlign: 'left'
@@ -89,8 +89,8 @@ const WhitePaperModal = ({ isOpen, onClose, paper }) => {
                     onClick={onClose}
                     style={{
                         position: 'absolute',
-                        top: '2.5rem',
-                        right: '3rem',
+                        top: '1.5rem',
+                        right: '1.5rem',
                         background: 'none',
                         border: 'none',
                         color: 'rgba(255,255,255,0.3)',
@@ -110,14 +110,14 @@ const WhitePaperModal = ({ isOpen, onClose, paper }) => {
                     }}
                 >&times;</button>
 
-                <div style={{ marginBottom: '4rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                <div style={{ marginBottom: '2.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
                         <div style={{ height: '1px', width: '30px', background: paper.color }}></div>
-                        <h4 style={{ color: paper.color, letterSpacing: '0.3em', fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase' }}>
+                        <h4 style={{ color: paper.color, letterSpacing: '0.3em', fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase' }}>
                             GAVITH INSIGHTS • {paper.date}
                         </h4>
                     </div>
-                    <h1 style={{ fontSize: '3rem', fontWeight: '400', lineHeight: 1.1, marginBottom: '2rem', color: '#fff', letterSpacing: '-0.02em' }}>
+                    <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: '400', lineHeight: 1.1, marginBottom: '1.5rem', color: '#fff', letterSpacing: '-0.02em' }}>
                         {paper.title}
                     </h1>
                     <p style={{ fontSize: '1.3rem', color: 'rgba(255,255,255,0.5)', fontWeight: '300', fontStyle: 'italic' }}>
@@ -235,27 +235,27 @@ const Partners = () => {
     };
 
     return (
-        <div style={{ paddingTop: '150px', paddingBottom: '10rem' }}>
+        <div style={{ paddingTop: 'clamp(100px, 15vh, 150px)', paddingBottom: 'var(--spacing-xl)' }}>
 
             <ScrollReveal>
-                <div style={{ textAlign: 'center', marginBottom: '8rem', padding: '0 2rem' }}>
-                    <h1 style={{ fontSize: 'clamp(3rem, 6vw, 6rem)', fontWeight: '200', letterSpacing: '0.1em' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-lg)', padding: '0 1rem' }}>
+                    <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', fontWeight: '200', letterSpacing: '0.1em' }}>
                         THE <span className="gavith-text">ALLIANCE</span>
                     </h1>
                 </div>
             </ScrollReveal>
 
             {/* SINGLE CONSOLIDATED MARQUEE */}
-            <div style={{ marginBottom: '10rem' }}>
+            <div style={{ marginBottom: 'var(--spacing-lg)' }}>
                 <LogoMarquee items={["Vajraakaaya", "Maradi", "PingWise"]} speed={30} />
             </div>
 
             {/* CASE STUDY HIGHLIGHT */}
             <ScrollReveal>
-                <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
+                <div className="container" style={{ maxWidth: '1000px', margin: '0 auto' }}>
                     <div style={{
                         position: 'relative',
-                        padding: '4rem',
+                        padding: 'clamp(1.5rem, 5vw, 4rem)',
                         background: 'radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), rgba(0,0,0,0))',
                         border: '1px solid rgba(255,255,255,0.1)',
                         borderRadius: '20px'
@@ -264,22 +264,22 @@ const Partners = () => {
 
                         <h4 style={{ color: '#00d2ff', letterSpacing: '0.2em', marginBottom: '1rem', paddingLeft: '2rem' }}>IMPACT REPORT</h4>
 
-                        <h2 style={{ fontSize: '2.5rem', maxWidth: '800px', marginBottom: '2rem', lineHeight: 1.3 }}>
+                        <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', maxWidth: '800px', marginBottom: '2rem', lineHeight: 1.3 }}>
                             "Gavith's integration reduced our material waste by <span style={{ color: '#fff' }}>32%</span> in the first quarter alone."
                         </h2>
 
-                        <p style={{ color: 'rgba(255,255,255,0.5)' }}>— Director of Civil Infrastructure, Vajraakaaya Constructions</p>
+                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>— Director of Civil Infrastructure, Vajraakaaya Constructions</p>
                     </div>
                 </div>
             </ScrollReveal>
 
             {/* PUBLICATIONS / PRESS SECTION */}
-            <div style={{ marginTop: '10rem' }}>
+            <div style={{ marginTop: 'var(--spacing-lg)' }}>
                 <ScrollReveal>
-                    <h3 style={{ textAlign: 'center', color: '#fff', letterSpacing: '0.2em', marginBottom: '4rem', opacity: 0.7 }}>GAVITH INSIGHTS</h3>
+                    <h3 style={{ textAlign: 'center', color: '#fff', letterSpacing: '0.2em', marginBottom: '2.5rem', opacity: 0.7 }}>GAVITH INSIGHTS</h3>
                 </ScrollReveal>
 
-                <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                     {[
                         { source: "TECHNICAL ARTICLE", date: "FEB 2026", title: "GAVITH: THE NEW OPERATING SYSTEM FOR THE BUILT ENVIRONMENT", color: "#00d2ff" },
                         { source: "TECHNICAL ARTICLE", date: "FEB 2026", title: "AI POWERED CIVIL ENGINEERING: REDEFINING PROJECT LIFECYCLES", color: "#005bea" },
