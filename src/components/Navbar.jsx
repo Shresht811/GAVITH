@@ -69,7 +69,7 @@ const Navbar = () => {
                 </Link>
 
                 {/* Desktop Links */}
-                <div className="desktop-only" style={{ display: 'flex', alignItems: 'center' }}>
+                <div className="desktop-only">
                     <NavLink to="/" label="Home" currentPath={location.pathname} />
                     <NavLink to="/features" label="Features" currentPath={location.pathname} />
                     <NavLink to="/partners" label="Partners" currentPath={location.pathname} />

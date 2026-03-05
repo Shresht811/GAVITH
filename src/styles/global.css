@@ -228,14 +228,20 @@ p {
 
 /* Responsive Utilities */
 .mobile-only {
-    display: none;
+    display: none !important;
+}
+
+.desktop-only {
+    display: flex !important;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
     .mobile-only {
-        display: block;
+        display: block !important;
     }
+
     .desktop-only {
-        display: none;
+        display: none !important;
     }
 }
