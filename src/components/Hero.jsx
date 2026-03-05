@@ -39,10 +39,11 @@ const Hero = () => {
                     textAlign: 'center',
                     display: 'block'
                 }}>
-                    <img src="/logo_transparent.png" alt="G" className="mobile-logo-shift" style={{
+                    {/* Desktop: marginRight -0.20em (original). Mobile override via CSS class below */}
+                    <img src="/logo_transparent.png" alt="G" className="hero-g-logo" style={{
                         height: '1.2em',
                         verticalAlign: 'middle',
-                        marginRight: '-0.20em', // Original Desktop Value
+                        marginRight: '-0.20em',
                         filter: 'drop-shadow(0 0 40px rgba(0, 91, 234, 0.4))',
                         display: 'inline-block'
                     }} />
@@ -84,9 +85,10 @@ const Hero = () => {
               50% { background-position: 100% 50%; }
               100% { background-position: 0% 50%; }
           }
-          @media (min-width: 769px) {
-              .hero-subheadline {
-                  /* Removed padding-left to ensure exact centering */
+          /* Mobile: shift logo slightly left for better centering */
+          @media (max-width: 768px) {
+              .hero-g-logo {
+                  margin-right: -0.45em !important;
               }
           }
       `}</style>
