@@ -71,8 +71,8 @@ const Vision = () => {
                     The future of enterprise is
                 </h2>
 
-                <h1 className="glitch-text" style={{
-                    fontSize: 'clamp(2rem, 10vw, 5rem)', // Adjusted for mobile one-line
+                <h1 className="glitch-text" data-text="redefine everything" style={{
+                    fontSize: 'clamp(2rem, 10vw, 5rem)',
                     fontWeight: '800',
                     lineHeight: '1.2',
                     marginBottom: '1rem',
@@ -81,7 +81,9 @@ const Vision = () => {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     filter: 'drop-shadow(0 0 30px rgba(0, 210, 255, 0.4))',
-                    whiteSpace: 'nowrap' // Ensure one line
+                    whiteSpace: 'nowrap',
+                    textAlign: 'center',
+                    margin: '0 auto'
                 }}>
                     redefine everything
                 </h1>

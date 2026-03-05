@@ -108,7 +108,7 @@ p {
 
 .glitch-text::before,
 .glitch-text::after {
-    content: "redefine everything";
+    content: attr(data-text);
     position: absolute;
     top: 0;
     left: 0;
@@ -116,8 +116,14 @@ p {
     height: 100%;
     white-space: nowrap;
     background: transparent;
-    /* Changed from #050505 to avoid masking issues on mobile */
     pointer-events: none;
+}
+
+/* Feature Header Centering */
+@media (max-width: 768px) {
+    .mobile-text-center {
+        text-align: center !important;
+    }
 }
 
 .glitch-text::before {
