@@ -101,7 +101,7 @@ const Hero = () => {
                   padding-left: 0;
               }
               .hero-g-logo {
-                  margin-right: -0.10em !important; /* subtle left pull, no overlap */
+                  margin-right: -0.25em !important; /* tighter gap between G and AVITH on mobile */
               }
           }
       `}</style>
