@@ -7,7 +7,7 @@ const Vision = () => {
     useEffect(() => {
         const section = sectionRef.current;
         const handleMouseMove = (e) => {
-            if (!solarSystemRef.current) return;
+            if (!solarSystemRef.current || window.matchMedia("(pointer: coarse)").matches) return;
 
             const { left, top, width, height } = section.getBoundingClientRect();
             const x = (e.clientX - left) / width - 0.5;
@@ -100,13 +100,13 @@ const Vision = () => {
 
             <div ref={solarSystemRef} style={{
                 position: 'relative',
-                width: '750px',
-                height: '750px',
+                width: 'clamp(300px, 80vw, 750px)',
+                height: 'clamp(300px, 80vw, 750px)',
                 // Initial Transform
                 transform: 'perspective(1000px) rotateX(60deg) scale(1.0)',
                 transformStyle: 'preserve-3d',
-                marginTop: '-150px',
-                marginBottom: '-150px',
+                marginTop: 'clamp(-50px, -10vh, -150px)',
+                marginBottom: 'clamp(-50px, -10vh, -150px)',
                 transition: 'transform 0.1s ease-out' // Smooth movement
             }}>
                 {/* Sun Core */}
@@ -131,12 +131,15 @@ const Vision = () => {
                 </div>
 
                 {/* Orbit Rings - Tech Style */}
-                {[...[300, 500].map((size, i) => ({ size, label: i === 0 ? 'Gavith Build' : 'Gavith Market' }))].map(({ size, label }, i) => (
+                {[...[300, 500].map((size, i) => ({
+                    size: `calc(${size / 750 * 100}%)`,
+                    label: i === 0 ? 'Gavith Build' : 'Gavith Market'
+                }))].map(({ size, label }, i) => (
                     <div key={i} className="tech-orbit" style={{
                         position: 'absolute',
                         top: '50%', left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: `${size}px`, height: `${size}px`,
+                        width: size, height: size,
                         border: '1px solid rgba(0, 210, 255, 0.2)',
                         borderRadius: '50%',
                         boxShadow: `inset 0 0 20px rgba(0, 210, 255, 0.05)`,

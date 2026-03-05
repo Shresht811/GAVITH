@@ -1,9 +1,25 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 
 const PrivacyPolicy = () => {
     return (
-        <div style={{ paddingTop: '150px', paddingBottom: '10rem', maxWidth: '800px', margin: '0 auto', paddingLeft: '2rem', paddingRight: '2rem' }}>
+        <div style={{ position: 'relative', paddingTop: '150px', paddingBottom: '10rem', maxWidth: '800px', margin: '0 auto', paddingLeft: '2rem', paddingRight: '2rem' }}>
+            <Link to="/" style={{
+                position: 'fixed',
+                top: '100px',
+                right: 'clamp(1rem, 5vw, 4rem)',
+                zIndex: 1000,
+                color: '#fff',
+                textDecoration: 'none',
+                background: 'rgba(0,0,0,0.5)',
+                backdropFilter: 'blur(10px)',
+                padding: '0.5rem 1.5rem',
+                borderRadius: '50px',
+                border: '1px solid rgba(0, 210, 255, 0.3)',
+                fontSize: '0.9rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em'
+            }}>✕ Close</Link>
             <ScrollReveal>
                 <h1 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', marginBottom: '2rem', fontWeight: '800', letterSpacing: '-0.02em' }}>
                     PRIVACY <span className="gavith-text">POLICY</span>

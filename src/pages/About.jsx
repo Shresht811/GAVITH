@@ -32,7 +32,7 @@ const About = () => {
         <div className="container" style={{ paddingTop: 'clamp(100px, 15vh, 150px)', paddingBottom: 'var(--spacing-xl)' }}>
 
             {/* HERO: WHO WE ARE */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-xl)', flexWrap: 'wrap-reverse', gap: '3rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-xl)', flexWrap: 'wrap', gap: '3rem' }}>
                 <div style={{ flex: 1, minWidth: '280px' }}>
                     <ScrollReveal>
                         <h1 style={{

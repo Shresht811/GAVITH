@@ -86,7 +86,7 @@ const Hero = () => {
           }
           @media (min-width: 769px) {
               .hero-subheadline {
-                  padding-left: 4rem;
+                  /* Removed padding-left to ensure exact centering */
               }
           }
       `}</style>
