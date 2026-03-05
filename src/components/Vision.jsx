@@ -85,7 +85,7 @@ const Vision = () => {
                     textAlign: 'center',
                     margin: '0 auto'
                 }}>
-                    redefine everything
+                    here, today.
                 </h1>
             </div>
 

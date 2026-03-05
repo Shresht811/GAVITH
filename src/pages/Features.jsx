@@ -9,20 +9,18 @@ const Features = () => {
                 <ScrollReveal>
                     <div style={{ marginBottom: '8rem', borderBottom: '1px solid rgba(0, 210, 255, 0.3)', paddingBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '2rem' }}>
                         <div>
-                            <h1 style={{
+                            <h1 className="mobile-text-center" style={{
                                 fontSize: 'clamp(3rem, 6vw, 6rem)',
                                 fontWeight: '800',
                                 letterSpacing: '-0.02em',
-                                lineHeight: 0.9,
-                                textAlign: window.innerWidth < 768 ? 'center' : 'left'
+                                lineHeight: 0.9
                             }}>
                                 SYSTEM CORE<span style={{ color: '#00d2ff' }}> </span>
                             </h1>
-                            <p style={{
+                            <p className="mobile-text-center" style={{
                                 fontFamily: 'monospace',
                                 color: '#00d2ff',
-                                marginTop: '1rem',
-                                textAlign: window.innerWidth < 768 ? 'center' : 'left'
+                                marginTop: '1rem'
                             }}>
                                 ARCHITECTURE BREAKDOWN
                             </p>
