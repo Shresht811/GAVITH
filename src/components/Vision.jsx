@@ -67,18 +67,19 @@ const Vision = () => {
                     The future of enterprise is
                 </h2>
 
-                <h1 className="glitch-text" style={{ // Added class for potential future CSS
-                    fontSize: 'clamp(3rem, 6vw, 5rem)',
+                <h1 className="glitch-text" style={{
+                    fontSize: 'clamp(2rem, 10vw, 5rem)', // Adjusted for mobile one-line
                     fontWeight: '800',
-                    lineHeight: '1',
+                    lineHeight: '1.2',
                     marginBottom: '1rem',
                     letterSpacing: '-0.02em',
                     background: 'linear-gradient(135deg, #00d2ff 0%, #005bea 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    filter: 'drop-shadow(0 0 30px rgba(0, 210, 255, 0.4))'
+                    filter: 'drop-shadow(0 0 30px rgba(0, 210, 255, 0.4))',
+                    whiteSpace: 'nowrap' // Ensure one line
                 }}>
-                    here, today.
+                    redefine everything
                 </h1>
             </div>
 

@@ -114,8 +114,10 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #050505;
-    /* Matches background to 'cut' the text */
+    white-space: nowrap;
+    background: transparent;
+    /* Changed from #050505 to avoid masking issues on mobile */
+    pointer-events: none;
 }
 
 .glitch-text::before {
