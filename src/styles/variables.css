@@ -1,0 +1,45 @@
+:root {
+  /* Color Palette - GAVITH Brand */
+  /* Extracted from Favicon: Cyan to Deep Blue */
+
+  /* Backgrounds */
+  --bg-primary: #050505;
+  /* Deeper black for premium feel */
+  --bg-secondary: #0a0a10;
+  /* Slight blue tint */
+  --bg-tertiary: #10101a;
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #c0c0c0;
+  /* Brighter secondary for contrast */
+  --text-muted: #666680;
+
+  /* Accents - The "G" Gradient */
+  --accent-cyan: #00d2ff;
+  --accent-blue: #005bea;
+  --accent-gradient: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+  --accent-glow: 0 0 40px rgba(0, 210, 255, 0.4);
+
+  /* Glassmorphism Refined */
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  /* More subtle border */
+  --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  /* Deep shadow for 3D depth */
+  --glass-blur: blur(20px);
+  /* Stronger blur */
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 10rem;
+  /* More spacing for minimalist luxury */
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  /* Switching to Outfit for that modern tech look if available, else standard */
+}
