@@ -119,10 +119,14 @@ p {
     pointer-events: none;
 }
 
-/* Feature Header Centering */
+/* Mobile Specific Enhancements */
 @media (max-width: 768px) {
     .mobile-text-center {
         text-align: center !important;
+    }
+
+    .mobile-logo-shift {
+        margin-right: -0.45em !important;
     }
 }
 

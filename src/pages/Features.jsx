@@ -44,10 +44,7 @@ const Features = () => {
                             gap: '1rem'
                         }}>
                             <div style={{ width: '10px', height: '10px', background: '#00d2ff', boxShadow: '0 0 10px #00d2ff' }}></div>
-                            <h2 className="mobile-only" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0, textAlign: 'center' }}>
-                                GAVITH BUILD <span style={{ color: 'rgba(255,255,255,0.3)' }}> ONSITE</span>
-                            </h2>
-                            <h2 className="desktop-only" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0 }}>
+                            <h2 className="mobile-text-center" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0, width: '100%' }}>
                                 GAVITH BUILD <span style={{ color: 'rgba(255,255,255,0.3)' }}> ONSITE</span>
                             </h2>
                         </div>
@@ -103,10 +100,7 @@ const Features = () => {
                             gap: '1rem'
                         }}>
                             <div style={{ width: '10px', height: '10px', background: '#005bea', boxShadow: '0 0 10px #005bea' }}></div>
-                            <h2 className="mobile-only" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0, textAlign: 'center' }}>
-                                GAVITH MARKET <span style={{ color: 'rgba(255,255,255,0.3)' }}> SUPPLY</span>
-                            </h2>
-                            <h2 className="desktop-only" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0 }}>
+                            <h2 className="mobile-text-center" style={{ fontSize: '2rem', letterSpacing: '0.1em', margin: 0, width: '100%' }}>
                                 GAVITH MARKET <span style={{ color: 'rgba(255,255,255,0.3)' }}> SUPPLY</span>
                             </h2>
                         </div>

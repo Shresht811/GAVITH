@@ -39,10 +39,10 @@ const Hero = () => {
                     textAlign: 'center',
                     display: 'block'
                 }}>
-                    <img src="/logo_transparent.png" alt="G" style={{
+                    <img src="/logo_transparent.png" alt="G" className="mobile-logo-shift" style={{
                         height: '1.2em',
                         verticalAlign: 'middle',
-                        marginRight: '-0.45em', // Shifted even more left as per user request
+                        marginRight: '-0.20em', // Original Desktop Value
                         filter: 'drop-shadow(0 0 40px rgba(0, 91, 234, 0.4))',
                         display: 'inline-block'
                     }} />
