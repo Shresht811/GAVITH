@@ -12,10 +12,12 @@ const Contact = () => {
         setStatus('Sending...');
 
         try {
-            const response = await fetch("/", {
+            const response = await fetch("https://formspree.io/f/mdalqqna", {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             });
 
             if (response.ok) {
@@ -23,7 +25,12 @@ const Contact = () => {
                 setShowModal(true);
                 form.reset();
             } else {
-                setStatus("Oops! There was a problem submitting your form. Please try again later.");
+                const data = await response.json();
+                if (Object.hasOwn(data, 'errors')) {
+                    setStatus(data["errors"].map(error => error["message"]).join(", "));
+                } else {
+                    setStatus("Oops! There was a problem submitting your form. Please try again later.");
+                }
                 setShowModal(true);
             }
         } catch (error) {
@@ -55,13 +62,9 @@ const Contact = () => {
                 padding: 'clamp(1.5rem, 5vw, 3rem)'
             }}>
                 <form
-                    name="contact"
-                    method="POST"
-                    data-netlify="true"
                     onSubmit={handleSubmit}
                     style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
                 >
-                    <input type="hidden" name="form-name" value="contact" />
                     <input type="text" name="name" required placeholder="Name" style={{
                         width: '100%',
                         padding: '1rem',
