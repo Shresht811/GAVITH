@@ -69,7 +69,8 @@ const Services = () => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             position: 'relative',
-                            padding: '1rem'
+                            padding: '1rem',
+                            '--planet-color': item.color
                         }}>
                             {/* Planet Sphere + Rings Container */}
                             <div className="planet-wrapper" style={{
@@ -123,38 +124,48 @@ const Services = () => {
                                     overflow: 'hidden',
                                     cursor: 'pointer',
                                     transition: 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)',
-                                    isolation: 'isolate' // Prevents layering issues that might cause "boxes"
+                                    isolation: 'isolate', // Prevents layering issues that might cause "boxes"
+                                    outline: 'none',
+                                    WebkitTapHighlightColor: 'transparent',
+                                    maskImage: 'radial-gradient(circle, white 100%, transparent 100%)',
+                                    WebkitMaskImage: 'radial-gradient(circle, white 100%, transparent 100%)'
                                 }}>
                                     {/* Physical Geography Layer (Land/Continents) */}
                                     <div style={{
                                         position: 'absolute',
                                         top: 0, left: 0, width: '100%', height: '100%',
-                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='4' seed='${index}'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.1 0 0 0 0 0.5 0 0 0 0 0.1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.4'/%3E%3C/svg%3E")`,
+                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f-${index}' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='4' seed='${index}'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.1 0 0 0 0 0.5 0 0 0 0 0.1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f-${index})' opacity='0.4'/%3E%3C/svg%3E")`,
                                         opacity: 0.5,
                                         mixBlendMode: 'overlay',
-                                        pointerEvents: 'none'
+                                        pointerEvents: 'none',
+                                        backfaceVisibility: 'hidden',
+                                        transform: 'translateZ(0)'
                                     }}></div>
 
                                     {/* Moving Cloud Layer */}
                                     <div className="planet-clouds" style={{
                                         position: 'absolute',
                                         top: '-50%', left: '-50%', width: '200%', height: '200%',
-                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='${index + 10}'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.3'/%3E%3C/svg%3E")`,
+                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c-${index}' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' seed='${index + 10}'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c-${index})' opacity='0.3'/%3E%3C/svg%3E")`,
                                         opacity: 0.25,
                                         mixBlendMode: 'screen',
                                         pointerEvents: 'none',
-                                    animation: 'rotateClouds 120s linear infinite'
+                                        animation: 'rotateClouds 120s linear infinite',
+                                        backfaceVisibility: 'hidden',
+                                        transform: 'translateZ(0)'
                                     }}></div>
 
                                     {/* High-Resolution Craters/Bumps Overlay */}
                                     <div style={{
                                         position: 'absolute',
                                         inset: 0,
-                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' seed='${index + 50}'/%3E%3CfeDiffuseLighting lighting-color='white' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
+                                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n-${index}' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' seed='${index + 50}'/%3E%3CfeDiffuseLighting lighting-color='white' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n-${index})' opacity='0.15'/%3E%3C/svg%3E")`,
                                         opacity: 0.2,
                                         mixBlendMode: 'overlay',
                                         pointerEvents: 'none',
-                                        zIndex: 4
+                                        zIndex: 4,
+                                        backfaceVisibility: 'hidden',
+                                        transform: 'translateZ(0)'
                                     }}></div>
 
                                     {/* Dynamic Rim Lighting */}
@@ -216,8 +227,7 @@ const Services = () => {
                     box-shadow: 
                         inset -30px -30px 60px rgba(0,0,0,0.85),
                         inset 20px 20px 40px rgba(255,255,255,0.25),
-                        0 0 100px ${item => item.color}55;
-                    border-color: rgba(255,255,255,0.4);
+                        0 0 100px var(--planet-color);
                 }
                 .planet-wrapper:hover .planet-glow {
                     transform: scale(1.3);

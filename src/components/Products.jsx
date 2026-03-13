@@ -43,7 +43,8 @@ const ProductCard = ({ item, index }) => {
                 justifyContent: 'center',
                 zIndex: 2,
                 width: '100%',
-                flex: 1
+                flex: 1,
+                '--node-color': item.color
             }}
             className="constellation-node-container"
         >
@@ -60,7 +61,11 @@ const ProductCard = ({ item, index }) => {
                 overflow: 'hidden',
                 isolation: 'isolate',
                 margin: '0 auto',
-                transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                outline: 'none',
+                WebkitTapHighlightColor: 'transparent',
+                maskImage: 'radial-gradient(circle, white 100%, transparent 100%)',
+                WebkitMaskImage: 'radial-gradient(circle, white 100%, transparent 100%)'
             }}>
                 {/* Outer Ambient Glow */}
                 <div className="ambient-glow" style={{
@@ -100,7 +105,9 @@ const ProductCard = ({ item, index }) => {
                     borderRadius: '50%',
                     background: `radial-gradient(circle at top right, rgba(15,15,25,0.9) 0%, rgba(5,5,10,0.95) 70%, ${item.color}33 100%)`,
                     zIndex: 1,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    maskImage: 'radial-gradient(circle, white 100%, transparent 100%)',
+                    WebkitMaskImage: 'radial-gradient(circle, white 100%, transparent 100%)'
                 }}>
                     {/* Internal Flowing Plasma Effect */}
                     <div style={{
@@ -112,6 +119,8 @@ const ProductCard = ({ item, index }) => {
                         mixBlendMode: 'screen',
                         pointerEvents: 'none',
                         zIndex: 2,
+                        backfaceVisibility: 'hidden',
+                        transform: 'translateZ(0)'
                     }}></div>
                 </div>
 
@@ -138,7 +147,8 @@ const ProductCard = ({ item, index }) => {
                         marginBottom: '0.8rem',
                         fontFamily: 'Inter',
                         textShadow: `0 0 15px ${item.color}`,
-                        lineHeight: '1.4'
+                        lineHeight: '1.4',
+                        '--subtitle-bottom': '0.8rem'
                     }}>
                         [ {item.subtitle.split('\n').map((line, i, arr) => (
                             <React.Fragment key={i}>
@@ -149,14 +159,14 @@ const ProductCard = ({ item, index }) => {
                     </p>
                     
                     <h3 style={{ 
-                        fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', 
+                        fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)', 
                         color: '#fff', 
                         marginBottom: '0.5rem', 
                         fontWeight: '900',
                         letterSpacing: '0.02em',
                         textTransform: 'uppercase',
                         lineHeight: 1.1,
-                        textShadow: `0 0 30px ${item.color}, 0 0 10px #fff`
+                        textShadow: `0 0 30px var(--node-color), 0 0 10px #fff`
                     }}>
                         {item.title}
                     </h3>
@@ -164,10 +174,10 @@ const ProductCard = ({ item, index }) => {
                     <p style={{ 
                         fontFamily: 'Inter', 
                         color: 'rgba(255,255,255,0.85)', 
-                        lineHeight: 1.5, 
-                        fontSize: 'clamp(0.8rem, 1vw, 0.95rem)',
+                        lineHeight: 1.4, 
+                        fontSize: 'clamp(0.75rem, 1vw, 0.95rem)',
                         marginBottom: '1rem',
-                        maxWidth: '90%',
+                        maxWidth: '85%',
                         fontWeight: '400'
                     }}>
                         {item.description}
@@ -179,7 +189,7 @@ const ProductCard = ({ item, index }) => {
                             display: 'inline-flex', 
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '1rem 2.5rem',
+                            padding: 'var(--btn-padding, 1rem 2.5rem)',
                             background: `linear-gradient(90deg, ${item.color}33, transparent)`,
                             border: `1px solid ${item.color}`,
                             borderRadius: '100px',
@@ -213,16 +223,30 @@ const ProductCard = ({ item, index }) => {
                     background: radial-gradient(circle, ${item.color}88 0%, transparent 70%) !important;
                 }
                 .node-core-wrapper:hover .tech-ring {
-                    border-color: ${item.color} !important;
-                    boxShadow: 0 0 30px ${item.color}88, inset 0 0 20px ${item.color}44 !important;
+                    border-color: var(--node-color) !important;
+                    box-shadow: 0 0 30px var(--node-color), inset 0 0 20px var(--node-color) !important;
                 }
                 .node-core-wrapper:hover .inner-solid {
                     border-color: rgba(255,255,255,0.4) !important;
                 }
                 .explore-btn:hover {
-                    background: ${item.color}66 !important;
-                    box-shadow: 0 0 30px ${item.color}88, inset 0 0 25px ${item.color}66 !important;
+                    background: var(--node-color) 66 !important;
+                    box-shadow: 0 0 30px var(--node-color) 88, inset 0 0 25px var(--node-color) 66 !important;
                     transform: scale(1.05);
+                }
+                @media (max-width: 600px) {
+                    .node-content {
+                        padding: 1rem !important;
+                        width: calc(100% - 40px) !important;
+                        height: calc(100% - 40px) !important;
+                    }
+                    .explore-btn {
+                        --btn-padding: 0.6rem 1.5rem !important;
+                        font-size: 0.75rem !important;
+                    }
+                    .node-content p:first-of-type {
+                        margin-bottom: 0.4rem !important;
+                    }
                 }
             `}</style>
         </motion.div>

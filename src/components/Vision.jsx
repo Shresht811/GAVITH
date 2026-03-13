@@ -129,16 +129,22 @@ const Vision = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    outline: 'none',
+                    WebkitTapHighlightColor: 'transparent',
+                    maskImage: 'radial-gradient(circle, white 100%, transparent 100%)',
+                    WebkitMaskImage: 'radial-gradient(circle, white 100%, transparent 100%)'
                 }}>
                     {/* Plasma Swirls */}
                     <div className="plasma-layer" style={{
                         position: 'absolute',
                         inset: '-50%',
-                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")`,
+                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p-vision' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p-vision)'/%3E%3C/svg%3E")`,
                         opacity: 0.4,
                         mixBlendMode: 'overlay',
-                        animation: 'plasmaRotate 30s linear infinite'
+                        animation: 'plasmaRotate 30s linear infinite',
+                        backfaceVisibility: 'hidden',
+                        transform: 'translateZ(0)'
                     }}></div>
                     <img src="/logo_transparent.png" alt="Gavith G" style={{
                         width: '65%',
