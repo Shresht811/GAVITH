@@ -478,10 +478,18 @@ p {
     }
 }
 
-/* Fix 100vw overflow on mobile (vertical scrollbars) */
+/* Fix overflow on mobile — only target content that should scale, NOT decorative divs/svg */
 @media (max-width: 768px) {
-    img, video, canvas, svg {
+    /* Only constrain images that are direct children of layout containers */
+    .container img,
+    .section > img,
+    article img {
         max-width: 100%;
+        height: auto;
+    }
+    /* Prevent horizontal scroll from oversized decorative elements */
+    body {
+        overflow-x: hidden;
     }
 }
 

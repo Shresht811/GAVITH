@@ -57,6 +57,8 @@ const ProductCard = ({ item, index }) => {
                 alignItems: 'center',
                 cursor: 'pointer',
                 borderRadius: '50%',
+                overflow: 'hidden',
+                isolation: 'isolate',
                 margin: '0 auto',
                 transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
             }}>
@@ -97,8 +99,6 @@ const ProductCard = ({ item, index }) => {
                     border: `2px solid rgba(255,255,255,0.1)`,
                     borderRadius: '50%',
                     background: `radial-gradient(circle at top right, rgba(15,15,25,0.9) 0%, rgba(5,5,10,0.95) 70%, ${item.color}33 100%)`,
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
                     zIndex: 1,
                     overflow: 'hidden'
                 }}>

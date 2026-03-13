@@ -146,6 +146,11 @@ const Vision = () => {
                         objectFit: 'contain',
                         position: 'relative',
                         zIndex: 21,
+                        display: 'block',
+                        border: 'none',
+                        outline: 'none',
+                        boxShadow: 'none',
+                        background: 'transparent',
                         filter: 'drop-shadow(0 0 10px #fff)'
                     }} />
                 </div>
