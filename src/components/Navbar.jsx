@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,7 +37,11 @@ const Navbar = () => {
     };
 
     return (
-        <nav style={{
+        <motion.nav 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 4.2, ease: "easeOut" }}
+            style={{
             position: 'fixed',
             top: 0,
             left: 0,
@@ -44,9 +49,9 @@ const Navbar = () => {
             zIndex: 1000,
             padding: '1rem 0',
             transition: 'all 0.4s ease',
-            background: isScrolled || isMobileMenuOpen ? 'rgba(5, 5, 10, 0.95)' : 'transparent',
-            backdropFilter: isScrolled || isMobileMenuOpen ? 'blur(20px)' : 'none',
-            borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none'
+            background: isScrolled || isMobileMenuOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent',
+            backdropFilter: isScrolled || isMobileMenuOpen ? 'blur(15px)' : 'none',
+            borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.1)' : 'none'
         }}>
             <div className="container" style={{
                 display: 'flex',
@@ -159,7 +164,7 @@ const Navbar = () => {
                     to { transform: translateY(0); opacity: 1; }
                 }
             `}</style>
-        </nav>
+        </motion.nav>
     );
 };
 

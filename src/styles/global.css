@@ -46,13 +46,40 @@ h6 {
 
 /* The Signature GAVITH Gradient Text Class */
 .gavith-text {
-    background: linear-gradient(135deg, #00d2ff 0%, #005bea 100%);
+    background: linear-gradient(135deg, #00d2ff 0%, #005bea 50%, #ffffff 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 700;
+    font-weight: 900;
     display: inline-block;
-    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.3));
+    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
+    animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Custom Space Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00d2ff, #005bea);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00d2ff;
 }
 
 p {
