@@ -168,8 +168,8 @@ const StarBackground = () => {
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '100vw',
-                height: '100vh',
+                width: '100%',
+                height: '100%',
                 background: 'radial-gradient(circle, transparent 40%, black 100%)',
                 pointerEvents: 'none',
                 opacity: 0.6

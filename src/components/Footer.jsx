@@ -6,10 +6,11 @@ const Footer = () => {
         <footer style={{
             background: 'rgba(5, 5, 10, 0.8)',
             backdropFilter: 'blur(30px)',
-            padding: '6rem 0 2rem',
+            padding: '1.2rem 0 0.2rem',
             borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            fontSize: '0.8rem'
         }}>
             {/* Cosmic Horizon Glow */}
             <div style={{
@@ -22,47 +23,70 @@ const Footer = () => {
 
             <div className="container" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '4rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1rem',
                 position: 'relative',
                 zIndex: 1
             }}>
                 <div style={{ flex: '1 1 250px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.5rem' }}>
-                        <img src="/logo_transparent.png" alt="GAVITH Logo" style={{ width: '35px', opacity: 0.9 }} />
-                        <h3 className="gavith-text" style={{ fontSize: '1.8rem', letterSpacing: '0.05em' }}>GAVITH</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem' }}>
+                        <img src="/logo_transparent.png" alt="GAVITH Logo" style={{ width: '25px', opacity: 0.9 }} />
+                        <h3 className="gavith-text" style={{ fontSize: '1.4rem', letterSpacing: '0.05em' }}>GAVITH</h3>
                     </div>
                     <p style={{ 
-                        fontSize: '0.95rem', 
+                        fontSize: '0.8rem', 
                         color: 'rgba(255,255,255,0.7)', 
-                        lineHeight: '1.6',
-                        maxWidth: '320px'
+                        lineHeight: '1.4',
+                        maxWidth: '280px'
                     }}>
                         Empowering global enterprises with mission-critical technology solutions and strategic consulting perfected for the modern age.
                     </p>
                 </div>
 
                 <div>
-                    <h4 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1.5rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Solutions</h4>
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', padding: 0 }}>
+                    <h4 style={{ color: 'white', fontSize: '0.9rem', marginBottom: '0.6rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Solutions</h4>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: 0 }}>
                         <li><FooterLink to="/#services">AI Consulting</FooterLink></li>
-                        <li><FooterLink to="/features">Cloud Infrastructure</FooterLink></li>
-                        <li><FooterLink to="/features">Cyber Security</FooterLink></li>
+                        <li><FooterLink to="/features">Platform Capabilities</FooterLink></li>
+                        <li>
+                            <FooterLink 
+                                onClick={(e) => { 
+                                    e.preventDefault(); 
+                                    if (window.location.pathname !== '/') {
+                                        window.location.href = '/#products';
+                                    } else {
+                                        const section = document.getElementById('products');
+                                        if (section) section.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }}
+                            >
+                                Enterprise Suite
+                            </FooterLink>
+                        </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1.5rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Company</h4>
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', padding: 0 }}>
+                    <h4 style={{ color: 'white', fontSize: '0.9rem', marginBottom: '0.6rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Company</h4>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: 0 }}>
                         <li><FooterLink to="/about">Our Vision</FooterLink></li>
                         <li><FooterLink to="/partners">Partners</FooterLink></li>
-                        <li><FooterLink to="/#contact">Contact Sales</FooterLink></li>
+                        <li>
+                            <FooterLink 
+                                onClick={(e) => { 
+                                    e.preventDefault(); 
+                                    window.dispatchEvent(new Event('open-contact-modal')); 
+                                }}
+                            >
+                                Contact Sales
+                            </FooterLink>
+                        </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1.5rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Legal</h4>
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', padding: 0 }}>
+                    <h4 style={{ color: 'white', fontSize: '0.9rem', marginBottom: '0.6rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Legal</h4>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: 0 }}>
                         <li><FooterLink to="/privacy">Privacy Policy</FooterLink></li>
                         <li><FooterLink to="/terms">Terms of Service</FooterLink></li>
                     </ul>
@@ -70,8 +94,8 @@ const Footer = () => {
             </div>
 
             <div className="container" style={{
-                marginTop: '6rem',
-                paddingTop: '2rem',
+                marginTop: '1.5rem',
+                paddingTop: '0.8rem',
                 borderTop: '1px solid rgba(255,255,255,0.05)',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -83,22 +107,30 @@ const Footer = () => {
                 position: 'relative',
                 zIndex: 1
             }}>
-                <p>© {new Date().getFullYear()} GAVITH Technologies. All Rights Reserved.</p>
-                <p style={{ letterSpacing: '0.1em' }}>PRECISION. INNOVATION. SCALE.</p>
+                <p>© 2026 GAVITH. All Rights Reserved.</p>
             </div>
         </footer>
     );
 };
 
-const FooterLink = ({ to, children }) => (
-    <Link to={to} style={{ 
+const FooterLink = ({ to, onClick, children }) => {
+    const style = { 
         color: 'rgba(255,255,255,0.6)', 
         textDecoration: 'none',
-        fontSize: '0.95rem',
+        fontSize: '0.85rem',
         transition: 'all 0.3s ease',
-        display: 'inline-block'
-    }} className="footer-link-hover">
-        {children}
-    </Link>
-);
+        display: 'inline-block',
+        cursor: 'pointer'
+    };
+    
+    if (onClick) {
+        return <a onClick={onClick} style={style} className="footer-link-hover">{children}</a>;
+    }
+    
+    return (
+        <Link to={to} style={style} className="footer-link-hover">
+            {children}
+        </Link>
+    );
+};
 export default Footer;

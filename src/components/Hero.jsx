@@ -1,9 +1,47 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 const Hero = () => {
+    // Mouse tracking for parallax
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+    const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+    const rotateX = useTransform(springY, [-1, 1], [15, -15]);
+    const rotateY = useTransform(springX, [-1, 1], [-15, 15]);
+    const translateX = useTransform(springX, [-1, 1], [-40, 40]);
+    const translateY = useTransform(springY, [-1, 1], [-40, 40]);
+
+    const handleMouseMove = (e) => {
+        // Skip parallax on touch devices
+        if (window.matchMedia('(pointer: coarse)').matches) return;
+        // Normalize mouse coordinates to range from -1 to 1
+        const x = (e.clientX / window.innerWidth) * 2 - 1;
+        const y = (e.clientY / window.innerHeight) * 2 - 1;
+        mouseX.set(x);
+        mouseY.set(y);
+    };
+    useEffect(() => {
+        // Hide the CSS scrollbar and lock scrolling while the landing animation plays
+        document.body.style.overflow = 'hidden';
+        document.body.classList.remove('scroll-ready'); // Ensure removed initially
+        
+        const timer = setTimeout(() => {
+            document.body.style.overflow = 'unset';
+            document.body.classList.add('scroll-ready'); // Trigger scrollbar style
+        }, 5500);
+
+        return () => {
+            clearTimeout(timer);
+            document.body.style.overflow = 'unset';
+            document.body.classList.remove('scroll-ready');
+        };
+    }, []);
+
     return (
-        <section id="hero" style={{
+        <section id="hero" onMouseMove={handleMouseMove} style={{
             height: '100vh',
             width: '100%',
             position: 'relative',
@@ -13,6 +51,7 @@ const Hero = () => {
             justifyContent: 'center',
             alignItems: 'center',
             color: '#fff',
+            perspective: '1200px'
         }}>
 
             <motion.div
@@ -26,6 +65,11 @@ const Hero = () => {
                 style={{
                     zIndex: 10,
                     textAlign: 'center',
+                    transformStyle: 'preserve-3d',
+                    x: translateX,
+                    y: translateY,
+                    rotateX: rotateX,
+                    rotateY: rotateY
                 }}
             >
                 {/* GAVITH Heading */}

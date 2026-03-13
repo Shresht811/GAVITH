@@ -105,7 +105,7 @@ const Vision = () => {
                 </h3>
             </div>
 
-            <div ref={solarSystemRef} style={{
+            <div ref={solarSystemRef} className="solar-system-wrapper" style={{
                 position: 'relative',
                 width: 'clamp(300px, 80vw, 750px)',
                 height: 'clamp(300px, 80vw, 750px)',
@@ -116,24 +116,37 @@ const Vision = () => {
                 marginBottom: 'clamp(-50px, -10vh, -150px)',
                 transition: 'transform 0.1s ease-out' // Smooth movement
             }}>
-                {/* Sun Core */}
-                <div style={{
+                {/* Sun Core - Living Plasma Effect */}
+                <div className="sun-core" style={{
                     position: 'absolute',
                     top: '50%', left: '50%',
                     transform: 'translate(-50%, -50%) rotateX(-60deg)',
-                    width: '100px', height: '100px',
+                    width: '120px', height: '120px',
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle, #fff, #00d2ff)',
-                    boxShadow: '0 0 80px #00d2ff, 0 0 40px #fff',
+                    background: 'radial-gradient(circle, #fff 0%, #00d2ff 40%, #005bea 100%)',
+                    boxShadow: '0 0 100px #00d2ff, 0 0 50px rgba(255,255,255,0.8)',
                     zIndex: 20,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    overflow: 'hidden'
                 }}>
+                    {/* Plasma Swirls */}
+                    <div className="plasma-layer" style={{
+                        position: 'absolute',
+                        inset: '-50%',
+                        background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")`,
+                        opacity: 0.4,
+                        mixBlendMode: 'overlay',
+                        animation: 'plasmaRotate 30s linear infinite'
+                    }}></div>
                     <img src="/logo_transparent.png" alt="Gavith G" style={{
-                        width: '70%',
-                        height: '70%',
-                        objectFit: 'contain'
+                        width: '65%',
+                        height: '65%',
+                        objectFit: 'contain',
+                        position: 'relative',
+                        zIndex: 21,
+                        filter: 'drop-shadow(0 0 10px #fff)'
                     }} />
                 </div>
 
@@ -152,20 +165,22 @@ const Vision = () => {
                         boxShadow: `inset 0 0 20px rgba(0, 210, 255, 0.05)`,
                         animation: `orbitSpin ${20 + i * 10}s linear infinite ${i % 2 === 0 ? '' : 'reverse'}`
                     }}>
-                        {/* Planet */}
                         <div style={{
                             position: 'absolute',
                             top: '50%',
                             right: '-15px',
                             width: '30px',
                             height: '30px',
-                            background: 'white',
+                            background: i === 0 
+                                ? 'radial-gradient(circle at 30% 30%, #4facfe, #1e3c72)' 
+                                : 'radial-gradient(circle at 30% 30%, #fa709a, #c12b2b)',
                             borderRadius: '50%',
-                            boxShadow: '0 0 15px #00d2ff',
+                            boxShadow: `0 0 20px ${i === 0 ? '#00d2ff' : '#fa709a'}`,
                             transform: 'rotateX(-60deg)',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            border: '1px solid rgba(255,255,255,0.3)'
                         }}>
                             <span style={{
                                 position: 'absolute',
@@ -190,11 +205,27 @@ const Vision = () => {
                             position: 'absolute',
                             top: '-1px',
                             left: '50%',
-                            width: '25%',
+                            width: '35%',
                             height: '2px',
-                            background: 'linear-gradient(90deg, transparent, #00d2ff, transparent)',
-                            filter: 'blur(1px)'
+                            background: `linear-gradient(90deg, transparent, ${i === 0 ? '#00d2ff' : '#fa709a'}, transparent)`,
+                            filter: 'blur(1.5px)',
+                            opacity: 0.6
                         }}></div>
+                        
+                        {/* Interactive Data Dots along the orbit */}
+                        {[...Array(6)].map((_, j) => (
+                            <div key={j} style={{
+                                position: 'absolute',
+                                width: '4px',
+                                height: '4px',
+                                background: i === 0 ? '#00d2ff' : '#fa709a',
+                                borderRadius: '50%',
+                                opacity: 0.3,
+                                transform: `rotate(${j * 60}deg) translateY(-50%)`,
+                                top: '50%', left: '50%',
+                                transformOrigin: '0 0'
+                            }} />
+                        ))}
                     </div>
                 ))}
             </div>
@@ -203,6 +234,15 @@ const Vision = () => {
                 @keyframes orbitSpin {
                     from { transform: translate(-50%, -50%) rotate(0deg); }
                     to { transform: translate(-50%, -50%) rotate(360deg); }
+                }
+                @keyframes plasmaRotate {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                .tech-orbit:hover {
+                    border-color: rgba(0, 210, 255, 0.5);
+                    box-shadow: inset 0 0 40px rgba(0, 210, 255, 0.1);
+                    transition: all 0.5s ease;
                 }
             `}</style>
         </section>

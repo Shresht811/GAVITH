@@ -18,6 +18,7 @@ html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 body {
@@ -63,23 +64,28 @@ h6 {
     100% { background-position: 0% 50%; }
 }
 
-/* Custom Space Scrollbar */
+/* Custom Space Scrollbar - Initially hidden/transparent */
 ::-webkit-scrollbar {
     width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #050505;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #00d2ff, #005bea);
+    background: transparent; /* Invisible by default */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #00d2ff;
+/* Scrollbar styles applied after Hero loads (5.5s) */
+body.scroll-ready ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(0, 210, 255, 0.7), rgba(0, 91, 234, 0.7));
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+body.scroll-ready ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 210, 255, 1);
 }
 
 p {
@@ -253,6 +259,41 @@ p {
     left: 100%;
 }
 
+/* Hologram Team Glitch */
+.team-hologram {
+    transition: all 0.3s ease;
+}
+.team-hologram:hover {
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.2) 0%, rgba(5, 5, 10, 0) 100%) !important;
+    box-shadow: inset 0 0 30px rgba(0, 210, 255, 0.2);
+}
+.hologram-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 210, 255, 0.5);
+    box-shadow: 0 0 10px #00d2ff;
+    opacity: 0;
+    z-index: 1;
+}
+.team-hologram:hover .hologram-scanline {
+    opacity: 1;
+    animation: scan 2s infinite linear;
+}
+@keyframes scan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 .gradient-text {
     background: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -292,4 +333,161 @@ p {
     }
 
     /* Adjusted for tripled items */
+}
+
+/* ===========================================
+   MOBILE OPTIMIZATION — Comprehensive Pass
+   =========================================== */
+
+/* Reduce paragraph font on mobile */
+@media (max-width: 768px) {
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    h1, h2, h3, h4 {
+        letter-spacing: 0.02em;
+    }
+}
+
+/* Products Section: stack circles vertically on mobile */
+@media (max-width: 768px) {
+    .constellation-node-container {
+        width: 100% !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
+    }
+
+    .node-core-wrapper {
+        width: clamp(260px, 80vw, 320px) !important;
+    }
+}
+
+/* Services planet grid: 1 column on mobile */
+@media (max-width: 768px) {
+    .planet-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+    }
+    .planet-card-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+}
+
+/* Contact satellite: scale down and center */
+@media (max-width: 768px) {
+    .satellite-container {
+        width: clamp(160px, 55vw, 200px) !important;
+    }
+}
+
+/* PageScroller: hide on very small screens */
+@media (max-width: 480px) {
+    .page-scroller-container {
+        display: none !important;
+    }
+}
+
+/* Vision solar system: reduce size */
+@media (max-width: 768px) {
+    .solar-system-wrapper {
+        transform: perspective(800px) rotateX(40deg) scale(0.7) !important;
+        margin-top: -2rem;
+    }
+}
+
+/* Features page blueprint cards: full-width on mobile */
+@media (max-width: 768px) {
+    .blueprint-grid {
+        padding-top: 100px !important;
+    }
+}
+
+/* About page team grid: single column on mobile */
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .team-hologram {
+        padding: 1.5rem !important;
+    }
+}
+
+/* Partners marquee: slow down animation on mobile */
+@media (max-width: 768px) {
+    .marquee-track {
+        animation-duration: 60s !important;
+    }
+}
+
+/* Footer: stack columns on mobile */
+@media (max-width: 600px) {
+    footer .container:first-of-type {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* Terminal modal: full screen on mobile */
+@media (max-width: 600px) {
+    .terminal-window {
+        border-radius: 0 !important;
+        max-height: 95vh !important;
+        overflow-y: auto !important;
+    }
+    .modal-overlay {
+        padding: 0.5rem !important;
+        align-items: flex-end !important;
+    }
+}
+
+/* Holo-card: disable hover transform on touch devices */
+@media (hover: none) {
+    .holo-card:hover {
+        transform: none !important;
+    }
+    .holo-card:hover::after {
+        left: -100% !important;
+    }
+    .team-hologram:hover .hologram-scanline {
+        opacity: 0 !important;
+        animation: none !important;
+    }
+}
+
+/* Reduce animation intensity on low-end / prefer-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .gavith-text {
+        animation: none !important;
+    }
+}
+
+/* ConnectingLines: hide on mobile to save performance */
+@media (max-width: 768px) {
+    .connecting-line-container {
+        display: none !important;
+    }
+}
+
+/* Fix 100vw overflow on mobile (vertical scrollbars) */
+@media (max-width: 768px) {
+    img, video, canvas, svg {
+        max-width: 100%;
+    }
+}
+
+/* Touch scrolling momentum */
+@media (max-width: 768px) {
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
 }

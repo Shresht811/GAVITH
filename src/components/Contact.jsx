@@ -1,219 +1,232 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Contact = () => {
-    const [status, setStatus] = useState('');
-    const [showModal, setShowModal] = useState(false);
+    // We lift the modal state directly to App.jsx now 
+    // This allows header/footer to trigger it globally
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-
-        setStatus('Sending...');
-
-        try {
-            const response = await fetch("https://formspree.io/f/mdalqqna", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                setStatus("Thank you! Your message has been sent successfully. We'll get back to you shortly.");
-                setShowModal(true);
-                form.reset();
-            } else {
-                const data = await response.json();
-                if (Object.hasOwn(data, 'errors')) {
-                    setStatus(data["errors"].map(error => error["message"]).join(", "));
-                } else {
-                    setStatus("Oops! There was a problem submitting your form. Please try again later.");
-                }
-                setShowModal(true);
-            }
-        } catch (error) {
-            setStatus("Oops! There was a problem submitting your form. Please check your connection.");
-            setShowModal(true);
-        }
+    const openContactModal = () => {
+        // Dispatch a custom event to the window so App.jsx can open the modal globally
+        window.dispatchEvent(new Event('open-contact-modal'));
     };
 
+    useEffect(() => {
+        const handleHashChange = () => {
+            if (window.location.hash === '#contact') {
+                openContactModal();
+                // Clean the URL hash softly without jumping
+                window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+            }
+        };
+
+        handleHashChange(); // Check on mount
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
+
     return (
-        <section id="contact" className="section container">
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                marginBottom: '4rem'
-            }}>
-                <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)', marginBottom: '1rem' }}>
-                    Ready to <span className="gradient-text">Innovate?</span>
-                </h2>
-                <p style={{ maxWidth: '600px', fontSize: 'clamp(1rem, 1.2vw, 1.2rem)' }}>
-                    Whether you need a strategic partner or a powerful tool, GAVITH is here to propel your business forward.
-                </p>
-            </div>
+        <section id="contact" className="section container" style={{ position: 'relative', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            
 
-            <div className="glass-card" style={{
-                maxWidth: '600px',
-                margin: '0 auto',
-                padding: 'clamp(1.5rem, 5vw, 3rem)'
-            }}>
-                <form
-                    onSubmit={handleSubmit}
-                    style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
-                >
-                    <input type="text" name="name" required placeholder="Name" style={{
-                        width: '100%',
-                        padding: '1rem',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px',
-                        color: 'white',
-                        outline: 'none'
-                    }} />
-
-                    <div style={{
-                        display: 'flex',
-                        gap: '1rem',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap'
-                    }}>
-                        <input type="email" name="email" required placeholder="Email" style={{
-                            flex: '1 1 200px',
-                            padding: '1rem',
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '8px',
-                            color: 'white',
-                            outline: 'none'
-                        }} />
-                        <input type="tel" name="phone" placeholder="Phone Number" style={{
-                            flex: '1 1 200px',
-                            padding: '1rem',
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '8px',
-                            color: 'white',
-                            outline: 'none'
-                        }} />
-                    </div>
-
-                    <input type="text" name="subject" required placeholder="Subject" style={{
-                        width: '100%',
-                        padding: '1rem',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px',
-                        color: 'white',
-                        outline: 'none'
-                    }} />
-
-                    <textarea name="message" required placeholder="Message" rows="5" style={{
-                        width: '100%',
-                        padding: '1rem',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px',
-                        color: 'white',
-                        outline: 'none',
-                        resize: 'vertical'
-                    }}></textarea>
-                    <button type="submit" style={{
-                        padding: '1rem',
-                        background: 'var(--accent-gradient)',
-                        color: 'white',
-                        fontWeight: 'bold',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        boxShadow: 'var(--accent-glow)',
-                        transition: 'transform 0.2s'
-                    }}
-                        onMouseDown={(e) => e.target.style.transform = 'scale(0.98)'}
-                        onMouseUp={(e) => e.target.style.transform = 'scale(1)'}
-                    >Send Message</button>
-                    {status === 'Sending...' && (
-                        <p style={{ textAlign: 'center', marginTop: '1rem', color: '#00d2ff' }}>
-                            Sending...
-                        </p>
-                    )}
-                </form>
-            </div>
-
-            {/* CONFIRMATION / ERROR MODAL */}
-            {showModal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    backdropFilter: 'blur(10px)',
-                    zIndex: 9999,
+            {/* Highly Advanced 3D Orbiting Satellite */}
+            <div 
+                className="satellite-container"
+                onClick={openContactModal}
+                style={{
+                    position: 'relative',
+                    cursor: 'pointer',
+                    width: 'clamp(200px, 30vw, 280px)', // Slightly larger to appreciate details
+                    aspectRatio: '1',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    perspective: '1200px', // Crucial for 3D effect
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                }}
+            >
+                {/* Main 3D Container */}
+                <div style={{
+                    position: 'relative', width: '100%', height: '100%',
+                    transformStyle: 'preserve-3d',
+                    animation: 'spin3D 25s linear infinite'
                 }}>
-                    <div className="holo-card" style={{
-                        background: 'linear-gradient(180deg, rgba(10, 15, 25, 0.95) 0%, rgba(5, 5, 10, 0.98) 100%)',
-                        border: `1px solid ${status.includes('Oops') ? 'rgba(255, 77, 77, 0.3)' : 'rgba(0, 210, 255, 0.3)'}`,
-                        borderRadius: '16px',
-                        padding: '3rem',
-                        maxWidth: '400px',
-                        width: '90%',
-                        textAlign: 'center',
-                        boxShadow: `0 0 30px ${status.includes('Oops') ? 'rgba(255, 77, 77, 0.1)' : 'rgba(0, 210, 255, 0.1)'}`
+                    
+                    {/* Ring 1 - X/Y Axis */}
+                    <div style={{ 
+                        position: 'absolute', inset: '5%', border: '2px solid rgba(0, 210, 255, 0.1)', 
+                        borderRadius: '50%', transformStyle: 'preserve-3d', animation: 'spin3D-x 15s linear infinite',
+                        boxShadow: 'inset 0 0 20px rgba(0,210,255,0.05), 0 0 10px rgba(0,210,255,0.1)'
+                    }}></div>
+                    
+                    {/* Ring 2 - X/Z Axis */}
+                    <div style={{ 
+                        position: 'absolute', inset: '15%', border: '2px dashed rgba(0, 210, 255, 0.3)', 
+                        borderRadius: '50%', transformStyle: 'preserve-3d', animation: 'spin3D-y 20s linear infinite reverse'
                     }}>
+                        <div style={{ position: 'absolute', top: '0', left: '50%', width: '6px', height: '6px', background: '#00d2ff', borderRadius: '50%', boxShadow: '0 0 15px #00d2ff', transform: 'translate(-50%, -50%)' }}></div>
+                    </div>
+
+                    {/* Ring 3 - Y/Z Axis */}
+                    <div style={{ 
+                        position: 'absolute', inset: '25%', border: '1px solid rgba(0, 210, 255, 0.5)', 
+                        borderRadius: '50%', transformStyle: 'preserve-3d', animation: 'spin3D-z 12s linear infinite'
+                    }}></div>
+                    
+                    {/* Futuristic Solar Arrays (3D Wings) */}
+                    <div className="solar-panel left-panel" style={{ 
+                        position: 'absolute', top: '35%', bottom: '35%', left: '-30%', width: '45%', 
+                        backgroundImage: 'linear-gradient(90deg, transparent 90%, rgba(0,210,255,0.8) 100%), linear-gradient(0deg, rgba(0,210,255,0.1) 0%, rgba(0,210,255,0.4) 100%)',
+                        backgroundSize: '15px 15px, 100% 100%',
+                        border: '2px solid rgba(0,210,255,0.8)', borderRadius: '4px', 
+                        transform: 'rotateY(60deg) translateZ(20px)', transformStyle: 'preserve-3d',
+                        boxShadow: 'inset 0 0 15px rgba(0,210,255,0.6), 0 0 20px rgba(0,210,255,0.3)'
+                    }}></div>
+                    <div className="solar-panel right-panel" style={{ 
+                        position: 'absolute', top: '35%', bottom: '35%', right: '-30%', width: '45%', 
+                        backgroundImage: 'linear-gradient(-90deg, transparent 90%, rgba(0,210,255,0.8) 100%), linear-gradient(0deg, rgba(0,210,255,0.1) 0%, rgba(0,210,255,0.4) 100%)',
+                        backgroundSize: '15px 15px, 100% 100%',
+                        border: '2px solid rgba(0,210,255,0.8)', borderRadius: '4px', 
+                        transform: 'rotateY(-60deg) translateZ(20px)', transformStyle: 'preserve-3d',
+                        boxShadow: 'inset 0 0 15px rgba(0,210,255,0.6), 0 0 20px rgba(0,210,255,0.3)'
+                    }}></div>
+
+                    {/* Central Energy Core (3D Sphere Illusion) */}
+                    <div className="satellite-core" style={{
+                        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                        width: '35%', height: '35%',
+                        background: 'radial-gradient(circle at 30% 30%, rgba(0,210,255,0.6) 0%, rgba(5,10,20,0.95) 70%)',
+                        border: '2px solid rgba(0, 210, 255, 0.9)', borderRadius: '50%',
+                        boxShadow: '0 0 40px rgba(0, 210, 255, 0.6), inset -10px -10px 20px rgba(0, 210, 255, 0.4), inset 10px 10px 20px rgba(255, 255, 255, 0.2)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
+                        backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                        transformStyle: 'preserve-3d'
+                    }}>
+                        {/* Floating Inner Transmitter */}
+                        <div style={{ 
+                            width: '30px', height: '30px', background: '#00d2ff', borderRadius: '50%', 
+                            boxShadow: '0 0 20px #00d2ff, 0 0 40px #ffffff, inset 0 0 10px #ffffff', 
+                            animation: 'pulseCore 1.5s infinite alternate',
+                            marginBottom: '10px'
+                        }}></div>
+                        {/* Text inside the Satellite Core */}
                         <div style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '50%',
-                            background: status.includes('Oops') ? 'rgba(255, 77, 77, 0.1)' : 'rgba(0, 210, 255, 0.1)',
-                            border: `2px solid ${status.includes('Oops') ? '#ff4d4d' : '#00d2ff'}`,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            margin: '0 auto 1.5rem auto',
-                            fontSize: '1.5rem'
+                            color: '#ffffff',
+                            fontSize: '0.55rem', // Adjusted to perfectly fit inside the 3D core
+                            fontWeight: '900',
+                            letterSpacing: '0.1em',
+                            textShadow: '0 0 10px #00d2ff, 0 0 15px #00d2ff',
+                            textAlign: 'center',
+                            textTransform: 'uppercase',
+                            transform: 'translateZ(15px)', // Pop out in 3D
+                            lineHeight: 1.2
                         }}>
-                            {status.includes('Oops') ? '❌' : '✓'}
+                            READY TO<br/>INNOVATE
                         </div>
-                        <h3 style={{
-                            fontSize: '1.5rem',
-                            marginBottom: '1rem',
-                            color: status.includes('Oops') ? '#ff4d4d' : '#00d2ff'
-                        }}>
-                            {status.includes('Oops') ? 'Error' : 'Thank You!'}
-                        </h3>
-                        <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '2rem', lineHeight: 1.5 }}>
-                            {status}
-                        </p>
-                        <button
-                            onClick={() => setShowModal(false)}
-                            style={{
-                                padding: '0.8rem 2rem',
-                                background: 'var(--bg-secondary)',
-                                border: `1px solid ${status.includes('Oops') ? '#ff4d4d' : '#00d2ff'}`,
-                                color: 'white',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.target.style.background = status.includes('Oops') ? 'rgba(255, 77, 77, 0.1)' : 'rgba(0, 210, 255, 0.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.target.style.background = 'transparent';
-                            }}
-                        >
-                            Close
-                        </button>
                     </div>
                 </div>
-            )}
+
+                <div className="hover-pulse" style={{ 
+                    position: 'absolute', inset: '-30%', borderRadius: '50%', 
+                    background: 'radial-gradient(circle, rgba(0, 210, 255, 0.4) 0%, transparent 60%)', 
+                    filter: 'blur(30px)', opacity: 0, transition: 'opacity 0.4s', pointerEvents: 'none', zIndex: -1 
+                }}></div>
+            </div>
+
+            <style>{`
+                @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                
+                @keyframes spin3D { 
+                    0% { transform: rotateX(15deg) rotateY(0deg) rotateZ(0deg); } 
+                    100% { transform: rotateX(15deg) rotateY(360deg) rotateZ(360deg); } 
+                }
+                @keyframes spin3D-x { 
+                    0% { transform: rotateX(0deg) rotateY(45deg); } 
+                    100% { transform: rotateX(360deg) rotateY(45deg); } 
+                }
+                @keyframes spin3D-y { 
+                    0% { transform: rotateY(0deg) rotateZ(60deg); } 
+                    100% { transform: rotateY(360deg) rotateZ(60deg); } 
+                }
+                @keyframes spin3D-z { 
+                    0% { transform: rotateX(70deg) rotateZ(0deg); } 
+                    100% { transform: rotateX(70deg) rotateZ(360deg); } 
+                }
+                @keyframes pulseCore {
+                    0% { transform: scale(0.9); opacity: 0.8; }
+                    100% { transform: scale(1.1); opacity: 1; boxShadow: 0 0 30px #00d2ff, 0 0 50px #ffffff, inset 0 0 15px #ffffff; }
+                }
+
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes crtExpand { 
+                    0% { transform: scaleY(0.01) scaleX(0); opacity: 0; }
+                    50% { transform: scaleY(0.01) scaleX(1); opacity: 1; }
+                    100% { transform: scaleY(1) scaleX(1); opacity: 1; }
+                }
+                @keyframes loadingBar { 0% { left: -30%; } 100% { left: 100%; } }
+                @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+                
+                .satellite-container:hover { transform: scale(1.15) translateY(-10px); }
+                .satellite-container:hover .hover-pulse { opacity: 1; }
+                .satellite-container:hover .satellite-core { 
+                    box-shadow: 0 0 70px rgba(0, 210, 255, 0.9), inset -10px -10px 20px rgba(0, 210, 255, 0.7), inset 10px 10px 20px rgba(255, 255, 255, 0.5); 
+                    border-color: rgba(0, 210, 255, 1);
+                }
+                .satellite-container:hover .solar-panel {
+                    border-color: rgba(0, 210, 255, 1);
+                    box-shadow: inset 0 0 25px rgba(0, 210, 255, 0.8), 0 0 20px rgba(0,210,255,0.5);
+                }
+
+                .input-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.2rem;
+                }
+                .input-prefix {
+                    color: rgba(0, 210, 255, 0.6);
+                    font-family: monospace;
+                    font-size: 0.8rem;
+                }
+                .sci-fi-input {
+                    width: 100%;
+                    padding: 0.8rem 1rem;
+                    background: rgba(0, 210, 255, 0.05);
+                    border: none;
+                    border-left: 2px solid rgba(0, 210, 255, 0.3);
+                    border-bottom: 1px solid rgba(0, 210, 255, 0.1);
+                    color: white;
+                    outline: none;
+                    transition: all 0.3s ease;
+                    font-family: monospace;
+                    font-size: 1rem;
+                }
+                .sci-fi-input:focus {
+                    background: rgba(0, 210, 255, 0.1);
+                    border-left: 2px solid #00d2ff;
+                    border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+                    box-shadow: inset 5px 0 15px rgba(0, 210, 255, 0.1);
+                }
+                
+                .sci-fi-submit {
+                    margin-top: 1rem;
+                    padding: 1.2rem;
+                    background: transparent;
+                    color: #00d2ff;
+                    font-family: monospace;
+                    font-size: 1.1rem;
+                    letter-spacing: 0.2em;
+                    border: 1px solid rgba(0, 210, 255, 0.5);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .sci-fi-submit:hover {
+                    background: rgba(0, 210, 255, 0.1);
+                    border-color: #00d2ff;
+                    box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+                    text-shadow: 0 0 10px #00d2ff;
+                }
+            `}</style>
         </section>
     );
 };

@@ -1,5 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
+import PageSEO from '../components/PageSEO';
+
+// Reusable animated count up
+const AnimatedCounter = ({ from, to, suffix = "", duration = 2.5 }) => {
+    const nodeRef = useRef(null);
+    const inView = useInView(nodeRef, { once: true, margin: "-100px" });
+
+    useEffect(() => {
+        if (inView) {
+            const controls = animate(from, to, {
+                duration,
+                ease: "easeOut",
+                onUpdate(value) {
+                    if (nodeRef.current) {
+                        nodeRef.current.textContent = Math.floor(value) + suffix;
+                    }
+                }
+            });
+            return () => controls.stop();
+        }
+    }, [from, to, inView, duration, suffix]);
+
+    return <span ref={nodeRef}>{from}{suffix}</span>;
+};
+
+// Reusable scramble decryption
+const ScrambleText = ({ text }) => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    const [display, setDisplay] = useState(text.replace(/./g, '-'));
+    
+    useEffect(() => {
+        let iterations = 0;
+        const interval = setInterval(() => {
+            setDisplay(text.split('').map((char, index) => {
+                if (char === ' ') return ' ';
+                if (index < iterations) return char;
+                return chars[Math.floor(Math.random() * chars.length)];
+            }).join(''));
+            if (iterations >= text.length) clearInterval(interval);
+            iterations += 1 / 3;
+        }, 20);
+        return () => clearInterval(interval);
+    }, [text]);
+    
+    return <span>{display}</span>;
+};
 
 const whitePapersContent = {
     "GAVITH: THE NEW OPERATING SYSTEM FOR THE BUILT ENVIRONMENT": {
@@ -118,7 +165,7 @@ const WhitePaperModal = ({ isOpen, onClose, paper }) => {
                         </h4>
                     </div>
                     <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: '400', lineHeight: 1.1, marginBottom: '1.5rem', color: '#fff', letterSpacing: '-0.02em' }}>
-                        {paper.title}
+                        <ScrambleText text={paper.title} />
                     </h1>
                     <p style={{ fontSize: '1.3rem', color: 'rgba(255,255,255,0.5)', fontWeight: '300', fontStyle: 'italic' }}>
                         {content?.subtitle}
@@ -196,26 +243,68 @@ const LogoMarquee = ({ items, speed = 40, direction = 'normal' }) => (
         <div style={{
             display: 'inline-block',
             animation: `scroll-left ${speed}s linear infinite`,
-            animationDirection: direction
+            animationDirection: direction,
+            display: 'flex',
+            alignItems: 'center'
         }}>
             {items.concat(items, items).map((item, i) => ( // Triple items for better coverage on mobile
                 <span key={i} style={{
-                    display: 'inline-block',
-                    fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
-                    fontWeight: '800',
-                    color: 'rgba(255,255,255,0.15)',
-                    margin: '0 clamp(1.5rem, 5vw, 4rem)',
-                    textTransform: 'uppercase',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'rgba(255,255,255,0.2)',
+                    margin: '0 clamp(2.5rem, 8vw, 6rem)',
                     cursor: 'default',
-                    transition: 'color 0.3s'
+                    transition: 'all 0.4s'
                 }}
-                    onMouseEnter={(e) => e.target.style.color = '#00d2ff'}
-                    onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.15)'}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#00d2ff';
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = 'rgba(255,255,255,0.2)';
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
                 >
                     {item}
                 </span>
             ))}
         </div>
+    </div>
+);
+
+// SVG Partner Logos
+const VajraakaayaLogo = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: '800' }}>
+        <svg width="40" height="40" viewBox="0 0 100 100" style={{ filter: 'drop-shadow(0 0 10px currentColor)' }}>
+            <polygon points="50,10 90,40 50,90 10,40" fill="none" stroke="currentColor" strokeWidth="6"/>
+            <polygon points="50,25 75,45 50,75 25,45" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.5"/>
+            <circle cx="50" cy="50" r="5" fill="currentColor"/>
+        </svg>
+        <span>VAJRAAKAAYA</span>
+    </div>
+);
+
+const MaradiLogo = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: '800' }}>
+        <svg width="50" height="40" viewBox="0 0 120 100" style={{ filter: 'drop-shadow(0 0 10px currentColor)' }}>
+            <path d="M10,90 L40,30 L70,70 L90,40 L110,90 Z" fill="none" stroke="currentColor" strokeWidth="6" strokeLinejoin="round"/>
+            <path d="M40,30 L40,90" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" opacity="0.4"/>
+            <path d="M90,40 L90,90" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" opacity="0.4"/>
+        </svg>
+        <span>MARADI</span>
+    </div>
+);
+
+const PingWiseLogo = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: '800' }}>
+        <svg width="45" height="45" viewBox="0 0 100 100" style={{ filter: 'drop-shadow(0 0 10px currentColor)' }}>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="4" strokeDasharray="10 5"/>
+            <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="2"/>
+            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+            <line x1="50" y1="50" x2="80" y2="20" stroke="currentColor" strokeWidth="3"/>
+        </svg>
+        <span>PINGWISE</span>
     </div>
 );
 
@@ -235,6 +324,12 @@ const Partners = () => {
     };
 
     return (
+        <>
+        <PageSEO
+            title="Partners & The Alliance"
+            description="GAVITH partners with industry leaders like Vajraakaaya and Maradi. Read our insights on how construction and enterprise technology is evolving."
+            path="/partners"
+        />
         <div style={{ paddingTop: 'clamp(100px, 15vh, 150px)', paddingBottom: 'var(--spacing-xl)' }}>
 
             <ScrollReveal>
@@ -247,7 +342,7 @@ const Partners = () => {
 
             {/* SINGLE CONSOLIDATED MARQUEE */}
             <div style={{ marginBottom: 'var(--spacing-lg)' }}>
-                <LogoMarquee items={["Vajraakaaya", "Maradi", "PingWise"]} speed={30} />
+                <LogoMarquee items={[<VajraakaayaLogo key="1"/>, <MaradiLogo key="2"/>, <PingWiseLogo key="3"/>]} speed={45} />
             </div>
 
             {/* CASE STUDY HIGHLIGHT */}
@@ -265,7 +360,7 @@ const Partners = () => {
                         <h4 style={{ color: '#00d2ff', letterSpacing: '0.2em', marginBottom: '1rem', paddingLeft: '2rem' }}>IMPACT REPORT</h4>
 
                         <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', maxWidth: '800px', marginBottom: '2rem', lineHeight: 1.3 }}>
-                            "Gavith's integration reduced our material waste by <span style={{ color: '#fff' }}>32%</span> in the first quarter alone."
+                            "Gavith's integration reduced our material waste by <span style={{ color: '#fff', textShadow: '0 0 15px #fff' }}><AnimatedCounter from={0} to={32} suffix="%" duration={3} /></span> in the first quarter alone."
                         </h2>
 
                         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>— Director of Civil Infrastructure, Vajraakaaya Constructions</p>
@@ -333,6 +428,7 @@ const Partners = () => {
             />
 
         </div>
+        </>
     );
 };
 
