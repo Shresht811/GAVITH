@@ -75,7 +75,15 @@ const Footer = () => {
                             <FooterLink 
                                 onClick={(e) => { 
                                     e.preventDefault(); 
-                                    window.dispatchEvent(new Event('open-contact-modal')); 
+                                    if (window.location.pathname !== '/') {
+                                        window.location.href = '/#contact';
+                                    } else {
+                                        const section = document.getElementById('contact');
+                                        if (section) {
+                                            section.scrollIntoView({ behavior: 'smooth' });
+                                            window.dispatchEvent(new Event('open-contact-modal'));
+                                        }
+                                    }
                                 }}
                             >
                                 Contact Sales

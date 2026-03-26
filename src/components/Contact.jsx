@@ -12,7 +12,14 @@ const Contact = () => {
     useEffect(() => {
         const handleHashChange = () => {
             if (window.location.hash === '#contact') {
-                openContactModal();
+                const section = document.getElementById('contact');
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    // Small delay to let the scroll start before opening the modal
+                    setTimeout(() => {
+                        openContactModal();
+                    }, 500);
+                }
                 // Clean the URL hash softly without jumping
                 window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
             }

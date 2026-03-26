@@ -24,7 +24,15 @@ const Navbar = () => {
     const handleContactClick = (e) => {
         e.preventDefault();
         setIsMobileMenuOpen(false);
-        window.dispatchEvent(new Event('open-contact-modal'));
+        if (location.pathname !== '/') {
+            navigate('/#contact');
+        } else {
+            const section = document.getElementById('contact');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                window.dispatchEvent(new Event('open-contact-modal'));
+            }
+        }
     };
 
     return (
